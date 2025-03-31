@@ -6,7 +6,7 @@ from sklearn.preprocessing import MinMaxScaler
 from botorch.models import SingleTaskGP
 from gpytorch.likelihoods import GaussianLikelihood
 from gpytorch.mlls import ExactMarginalLogLikelihood
-from botorch.optim.fit import fit_gpytorch_model
+from botorch.fit import fit_gpytorch_model
 from botorch.acquisition import ExpectedImprovement
 from botorch.optim import optimize_acqf
 import matplotlib.pyplot as plt
@@ -14,7 +14,7 @@ import numpy as np
 st.set_page_config(page_title="Bayesian Optimization for Anode Slurry", layout="wide")
 st.title("Bayesian Optimization for Anode Slurry")
 import pandas as pd
-file_path = "BO_slurry_Data.xlsx"
+file_path = "./BO_slurry_Data.xlsx"
 df = pd.read_excel(file_path, usecols='B:F', skiprows=[0,1,2], header=0, engine='openpyxl')
 raw_data=df.values
 df = pd.read_excel(file_path, usecols='B:E', skiprows=[0], nrows=2, header=None, engine='openpyxl')
