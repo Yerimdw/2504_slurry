@@ -1,5 +1,5 @@
 streamlit
-torch>=2.0
+torch
 botorch==0.8.3
 gpytorch
 scikit-learn
