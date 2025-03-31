@@ -6,7 +6,7 @@ from sklearn.preprocessing import MinMaxScaler
 from botorch.models import SingleTaskGP
 from gpytorch.likelihoods import GaussianLikelihood
 from gpytorch.mlls import ExactMarginalLogLikelihood
-from botorch.fit import fit_gpytorch_model
+from botorch.optim.fit import fit_gpytorch_model
 from botorch.acquisition import ExpectedImprovement
 from botorch.optim import optimize_acqf
 import matplotlib.pyplot as plt
