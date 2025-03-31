@@ -85,7 +85,7 @@ if st.button("Candidate를 추천받으려면 버튼을 누르세요."):
     ax.scatter(candidate_cb, candidate_ys, color="red", s=20, label="Candidate", zorder=10)
 
     ax.set_title("Carbon Black vs Yields stress")
-    ax.set_xlabel("Carbon Black [g]")
+    ax.set_xlabel("Carbon Black [wt%]")
     ax.set_ylabel("Yield stress [Pa]")
     ax.legend()
     ax.grid(True)
