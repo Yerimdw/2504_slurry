@@ -1,6 +1,6 @@
 streamlit
 torch
-botorch
+botorch>=0.8
 gpytorch
 scikit-learn
 matplotlib
