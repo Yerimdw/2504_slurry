@@ -6,7 +6,7 @@ from sklearn.preprocessing import MinMaxScaler
 from botorch.models import SingleTaskGP
 from gpytorch.likelihoods import GaussianLikelihood
 from gpytorch.mlls import ExactMarginalLogLikelihood
-from botorch.optim.fit import fit_gpytorch_model
+from botorch.optim.fit import fit_gpytorch_mll
 from botorch.acquisition import ExpectedImprovement
 from botorch.optim import optimize_acqf
 import matplotlib.pyplot as plt
@@ -36,7 +36,7 @@ if st.button("Candidate를 추천받으려면 버튼을 누르세요."):
     likelihood=GaussianLikelihood()
     model=SingleTaskGP(X_train, Y_train,likelihood=likelihood)
     mll=ExactMarginalLogLikelihood(likelihood, model)
-    fit_gpytorch_model(mll)
+    fit_gpytorch_mll(mll)
 
     ei = ExpectedImprovement(model=model, best_f=Y_train.max(), maximize=True)
     candidate, _ = optimize_acqf(
