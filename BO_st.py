@@ -51,7 +51,7 @@ if st.button("Candidate를 추천받으려면 버튼을 누르세요."):
     columns = ["Carbon Black", "Binder", "Solvent", "Graphite"]
     table_data = [
         ["Composition"] + columns,
-        ["(g)"] + candidate_values.tolist()
+        ["(wt%)"] + candidate_values.tolist()
     ]
 
     df_table = pd.DataFrame(table_data)
