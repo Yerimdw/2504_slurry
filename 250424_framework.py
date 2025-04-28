@@ -132,7 +132,8 @@ def run_LHS():
 
 def run_RF():
     st.title("Random forest를 통한 feature importance 분석 (Summary plots)")
-    df = pd.read_excel("C:/YR/1_Experiment/LHS_slurry_data.xlsx", engine="openpyxl")
+    url = "https://raw.githubusercontent.com/Yerimdw/2504_slurry/refs/heads/main/LHS_slurry_data_st.csv"
+    df=pd.read_csv(url)
     X = df[["Graphite", "Carbon\nblack", "CMC", "SBR", "Solvent"]]
     Y = df[["yield stress", "n", "K", "viscosity"]]
 
@@ -189,7 +190,8 @@ def run_GA():
     st.title("Genetic Algorithm을 통한 추가 실험 조성 추천 (3가지)")
 
     # 데이터 불러오기
-    df = pd.read_excel("C:/YR/1_Experiment/LHS_slurry_data.xlsx", engine="openpyxl")
+    url = "https://raw.githubusercontent.com/Yerimdw/2504_slurry/refs/heads/main/LHS_slurry_data_st.csv"
+    df=pd.read_csv(url)
     X = df[["Graphite", "Carbon\nblack", "CMC", "SBR", "Solvent"]]
     Y = df[["yield stress"]]  #일단 yield stress만
 
@@ -256,7 +258,8 @@ def run_ID():
     st.title("Inverse design을 통한 coating에 적합한 조성 추천")
 
     # 데이터 불러오기
-    df = pd.read_excel("C:/YR/1_Experiment/LHS_slurry_data.xlsx", engine="openpyxl")
+    url = "https://raw.githubusercontent.com/Yerimdw/2504_slurry/refs/heads/main/LHS_slurry_data_st.csv"
+    df=pd.read_csv(url)
     X = df[["Graphite", "Carbon\nblack", "CMC", "SBR", "Solvent"]]
     Y = df[["yield stress", "viscosity"]]  # 두 output 모두 사용
 
