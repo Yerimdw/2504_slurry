@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from pyDOE import lhs
+from pyDOE2 import lhs
 
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import RepeatedKFold
