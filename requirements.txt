@@ -1,7 +1,7 @@
 streamlit
 pandas
 numpy
-pyDOE2
+pyDOE
 scikit-learn
 shap
 matplotlib
