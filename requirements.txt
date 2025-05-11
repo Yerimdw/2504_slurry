@@ -9,3 +9,4 @@ torch
 botorch
 gpytorch
 openpyxl
+scipy
