@@ -304,8 +304,8 @@ def run_BO():
     # 데이터 불러오기 - GitHub용
     url = "https://raw.githubusercontent.com/Yerimdw/2504_slurry/refs/heads/main/LHS_slurry_data_st.csv"
     df=pd.read_csv(url)
-    x_cols = df[["Graphite", "Carbon\nblack", "CMC", "SBR", "Solvent"]]
-    y_cols = df[["yield stress", "viscosity"]]
+    x_cols = df["Graphite", "Carbon\nblack", "CMC", "SBR", "Solvent"]
+    y_cols = df["yield stress", "viscosity"]
 
     X_raw = df[x_cols].values
     Y_raw = df[y_cols].values
