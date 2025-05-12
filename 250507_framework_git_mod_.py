@@ -394,7 +394,7 @@ def run_BO():
     train_y_vis_plot[:, 1] = -train_y_vis_plot[:, 1]
     pareto_points = train_y_vis_plot[pareto_mask].numpy()
 
-    fig = plt.figure(figsize=(8, 6))
+    fig = plt.figure(figsize=(5, 4))
     ax = fig.add_subplot(111, projection='3d')
 
     ax.scatter(train_y_vis_plot[:, 1], train_y_vis_plot[:, 0], train_y_vis_plot[:, 2],
