@@ -282,12 +282,12 @@ def run_GA():
             # 다음 세대 업데이트
             pop = torch.vstack((parents, torch.stack(children)))
 
-        # 최종 평가 후 상위 3개 선택
+        # 최종 평가 후 상위 10개 선택
         final_fitness = torch.tensor([
             fitness(x, model, best_f, scaler, bounds_tensor, graphite_idx, viscosity_idx)
             for x in pop
         ], dtype=torch.float64).squeeze()
-        best_indices = torch.topk(final_fitness, k=3).indices
+        best_indices = torch.topk(final_fitness, k=10).indices
         return pop[best_indices]
 
     # Graphite와 viscosity 인덱스 지정
