@@ -313,7 +313,8 @@ def run_GA():
     init_candidates_denorm = scaler_input.inverse_transform(init_candidates.numpy())
     st.dataframe(pd.DataFrame(init_candidates_denorm, columns=X.columns))
     
-    st.write("- 현재 단일 output 최적화(yield stress가 가장 클 것 같은 조성을 추천)")
+    st.write("추천 기준: Yield stress의 EI 값이 높고, Viscosity가 0.5 Pa.s 와 가장 가깝고, Graphite가 최대한 많이 함량")
+
 
 
 def run_BO():
