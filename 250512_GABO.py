@@ -45,16 +45,6 @@ from botorch.utils.multi_objective.box_decompositions import (
 from scipy.spatial import ConvexHull
 
 
-# Sidebar 구성
-st.set_page_config(page_title="Data-driven optimization of anode slurry", layout="wide")
-st.sidebar.title("Optimization steps")
-step = st.sidebar.radio("Select a step", [
-    "A. DOE(LHS)",
-    "B. Feature importance",
-    "C. Initial candidates (GA)",
-    "D. Bayesian optimization (GPR)",
-    "E. Optimal composition for coating"
-])
 
 
 # Data lodaing 함수 정의
