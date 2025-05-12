@@ -13,7 +13,7 @@ st.title("PINN을 통한 1차원 비정상 열전도 방정식 계산")
 # -----------------------------
 L = st.number_input("두께 L (cm)", value=10)
 T_max = st.number_input("시뮬레이션 시간 (s)", value=180)
-alpha = st.number_input("열확산계수 α (m²/s)", value=0.0000117) # 구리
+alpha = st.number_input("열확산계수 α (m²/s)", value=0.0000117, format="%.8f") # 구리
 
 T_left = st.number_input("왼쪽 경계조건 온도 (℃)", value=25.0)
 T_right = st.number_input("오른쪽 경계조건 온도 (℃)", value=25.0)
