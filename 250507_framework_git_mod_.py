@@ -422,7 +422,10 @@ def run_BO():
     ax.view_init(elev=25, azim=135)
     ax.legend()
     ax.grid(True)
-    plt.tight_layout()
+    # plt.tight_layout()
+
+    # tight_layout 제거하고 수동 조정
+    fig.subplots_adjust(left=0.0, right=1.0, bottom=0.0, top=1.0)
     st.pyplot(fig)
 
     # 5-Fold Cross-Validation
