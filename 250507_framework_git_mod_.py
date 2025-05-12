@@ -192,7 +192,6 @@ def run_RF():
 
 
 def run_GA():
-def run_GA():
     st.title("Genetic Algorithm을 통한 추가 실험 조성 추천 (3가지)")
 
     # 데이터 불러오기 - GitHub용
