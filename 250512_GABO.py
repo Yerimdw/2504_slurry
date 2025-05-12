@@ -1,6 +1,20 @@
 # C:/YR/PycharmProjects/250512_GABO.py
 
 import streamlit as st
+
+# Sidebar 구성
+st.set_page_config(page_title="Data-driven optimization of anode slurry", layout="wide")
+st.sidebar.title("Optimization steps")
+step = st.sidebar.radio("Select a step", [
+    "A. DOE(LHS)",
+    "B. Feature importance",
+    "C. Initial candidates (GA)",
+    "D. Bayesian optimization (GPR)",
+    "E. Optimal composition for coating"
+])
+
+
+
 import pandas as pd
 import numpy as np
 from pyDOE import lhs
