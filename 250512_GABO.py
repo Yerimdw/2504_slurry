@@ -31,9 +31,6 @@ from botorch.utils.multi_objective.box_decompositions import (
 from scipy.spatial import ConvexHull
 
 
-
-from memo import run_GA_BO
-
 # Sidebar 구성
 st.set_page_config(page_title="Data-driven optimization of anode slurry", layout="wide")
 st.sidebar.title("Optimization steps")
