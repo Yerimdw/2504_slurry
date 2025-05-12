@@ -311,7 +311,8 @@ def run_GA():
 
     # 역정규화 및 출력
     init_candidates_denorm = scaler_input.inverse_transform(init_candidates.numpy())
-    st.dataframe(pd.DataFrame(init_candidates_denorm, columns=X.columns))
+    # st.dataframe(pd.DataFrame(init_candidates_denorm, columns=X.columns))
+    st.dataframe(pd.DataFrame(init_candidates_denorm, columns=X.columns), height=500)
     
     st.write("추천 기준: Yield stress의 EI 값이 높고, Viscosity가 0.5 Pa.s 와 가장 가깝고, Graphite가 최대한 많이 함량")
 
