@@ -353,18 +353,13 @@ def run_GA():
 def run_GA_BO():
     st.title("Genetic Algorithm + BO 최적화 조성 추천 (3가지)")
 
-    # url = "https://raw.githubusercontent.com/Yerimdw/2504_slurry/refs/heads/main/LHS_slurry_data_st.csv"
-    # df = pd.read_csv(url)
-    # x_cols = ["Graphite", "Carbon\nblack", "CMC", "SBR", "Solvent"]
-    # y_cols = ["yield stress", "viscosity"]
-    # X = df[x_cols]
-    # Y = df[y_cols]
+    url = "https://raw.githubusercontent.com/Yerimdw/2504_slurry/refs/heads/main/LHS_slurry_data_st.csv"
+    df = pd.read_csv(url)
+    x_cols = ["Graphite", "Carbon\nblack", "CMC", "SBR", "Solvent"]
+    y_cols = ["yield stress", "viscosity"]
+    X = df[x_cols]
+    Y = df[y_cols]
 
-
-    # 데이터 불러오기 - Streamlit용
-    df = pd.read_excel("C:/YR/1_Experiment/LHS_slurry_data.xlsx", engine="openpyxl")
-    X = df[["Graphite", "Carbon\nblack", "CMC", "SBR", "Solvent"]]
-    Y = df[["yield stress", "viscosity"]]
 
     # 전처리
     scaler_input = MinMaxScaler()
