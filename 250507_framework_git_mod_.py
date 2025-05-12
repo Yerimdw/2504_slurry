@@ -574,7 +574,7 @@ if step == "A. DOE(LHS)":
 elif step == "B. Feature importance":
     run_RF()
 
-elif step == "C. Initial candidates(GA)":
+elif step == "C. Initial candidates (GA)":
     run_GA()
 
 elif step == "D. Bayesian optimization (GPR)":
