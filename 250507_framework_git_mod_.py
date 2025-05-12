@@ -210,6 +210,9 @@ def run_GA():
     input_data_scaled = scaler_input.fit_transform(X)
     train_x = torch.tensor(input_data_scaled, dtype=torch.float64)
     train_y = torch.tensor(Y.values, dtype=torch.float64)
+    
+    # SingleTaskGP에 yields stress 하나만 전달 (단일출력밖에 못하니까)
+    train_y = torch.tensor(Y["yield stress"].values, dtype=torch.float64).unsqueeze(-1)
 
     # GP 모델 학습
     gpr_model = SingleTaskGP(train_x, train_y) # SingleTaskGP : yield stress만 학습
