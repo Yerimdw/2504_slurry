@@ -192,13 +192,14 @@ def run_RF():
 
 
 def run_GA():
+def run_GA():
     st.title("Genetic Algorithm을 통한 추가 실험 조성 추천 (3가지)")
 
     # 데이터 불러오기 - GitHub용
     url = "https://raw.githubusercontent.com/Yerimdw/2504_slurry/refs/heads/main/LHS_slurry_data_st.csv"
     df=pd.read_csv(url)
     X = df[["Graphite", "Carbon\nblack", "CMC", "SBR", "Solvent"]]
-    Y = df[["yield stress"]]  #일단 yield stress만
+    Y = df[["yield stress", "viscosity"]]  #일단 yield stress만
 
     # # 데이터 불러오기 - Streamlit용
     # df = pd.read_excel("C:/YR/1_Experiment/LHS_slurry_data.xlsx", engine="openpyxl")
@@ -217,6 +218,9 @@ def run_GA():
     fit_gpytorch_mll(mll)
 
     # EI 계산 함수
+    def expected_improvement(x_tensor, model, best_f):
+        ei = ExpectedImprovement(model=model, best_f=best_f)
+        return ei(x_tensor.unsqueeze(0)).item()
 
     ## 여기 수정
     def fitness(x_tensor, model, best_f, scaler, bounds_tensor, graphite_idx, viscosity_idx):
@@ -246,15 +250,23 @@ def run_GA():
 
 
     # GA를 통한 초기 후보 추천
-    def run_GA_for_initial_candidates(model, bounds_tensor, best_f, pop_size=20, generations=30):
+    def run_GA_for_initial_candidates(model, bounds_tensor, best_f, scaler, graphite_idx, viscosity_idx, pop_size=20,
+                                      generations=30):
         dim = bounds_tensor.shape[1]
         pop = torch.rand(pop_size, dim, dtype=torch.float64)
 
-        for _ in range(generations):
-            ei_vals = torch.tensor([expected_improvement(x, model, best_f) for x in pop], dtype=torch.float64).squeeze()
-            topk = torch.topk(ei_vals, k=pop_size // 2)
+        for gen in range(generations):
+            # fitness 기반 평가
+            fitness_vals = torch.tensor([
+                fitness(x, model, best_f, scaler, bounds_tensor, graphite_idx, viscosity_idx)
+                for x in pop
+            ], dtype=torch.float64).squeeze()
+
+            # 상위 절반 선택
+            topk = torch.topk(fitness_vals, k=pop_size // 2)
             parents = pop[topk.indices]
 
+            # 자식 생성
             children = []
             for i in range(0, len(parents), 2):
                 p1, p2 = parents[i], parents[(i + 1) % len(parents)]
@@ -265,24 +277,41 @@ def run_GA():
                 child = torch.clamp(child, 0.0, 1.0)
                 children.append(child)
 
+            # 다음 세대 업데이트
             pop = torch.vstack((parents, torch.stack(children)))
 
-        final_ei = torch.tensor([expected_improvement(x, model, best_f) for x in pop], dtype=torch.float64).squeeze()
-        best_indices = torch.topk(final_ei, k=3).indices
+        # 최종 평가 후 상위 3개 선택
+        final_fitness = torch.tensor([
+            fitness(x, model, best_f, scaler, bounds_tensor, graphite_idx, viscosity_idx)
+            for x in pop
+        ], dtype=torch.float64).squeeze()
+        best_indices = torch.topk(final_fitness, k=3).indices
         return pop[best_indices]
+
+    # Graphite와 viscosity 인덱스 지정
+    graphite_idx = 0  # Graphite 열 인덱스
+    viscosity_idx = 1  # viscosity 인덱스 (Y의 두 번째 열)
 
     # GA 실행
     normalized_bounds = torch.tensor([[0.0] * train_x.shape[1], [1.0] * train_x.shape[1]], dtype=torch.float64)
-    best_y = train_y.max().item()
-    init_candidates = run_GA_for_initial_candidates(gpr_model, normalized_bounds, best_y, pop_size=20, generations=50)
+    best_y = train_y[:, 0].max().item()  # yield stress 최대값
 
-    # 역정규화하여 출력
+    init_candidates = run_GA_for_initial_candidates(
+        gpr_model,
+        normalized_bounds,
+        best_y,
+        scaler_input,
+        graphite_idx,
+        viscosity_idx,
+        pop_size=20,
+        generations=50  # 테스트 시 5로 줄여도 됨
+    )
+
+    # 역정규화 및 출력
     init_candidates_denorm = scaler_input.inverse_transform(init_candidates.numpy())
-
     st.dataframe(pd.DataFrame(init_candidates_denorm, columns=X.columns))
-
+    
     st.write("- 현재 단일 output 최적화(yield stress가 가장 클 것 같은 조성을 추천)")
-    st.write("- NSGA-II라는 다목적 최적화 알고리즘")
 
 
 def run_BO():
